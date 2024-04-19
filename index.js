@@ -12,7 +12,7 @@ mongoose.connect(mongourl)
 const User = mongoose.model('Users', { name: String, email: String, password: String });
 const user = new User({
     email: "hero332@gmail.com",
-    password: "abcd",
+    password: "abcfd",
         name: "hero 3"
 })
 user.save();
