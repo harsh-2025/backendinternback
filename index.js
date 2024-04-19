@@ -47,16 +47,19 @@ app.post("/signin", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-    const token = req.headers.authorization;
-    try {
-        const decoded = jwt.verify(token, jwtpassword);
-        const username = decoded.username;
-    }
-    catch(err) {
-        return res.status(403).json({
-            msg: "invalid user "
-        })
-    }
+  const token = req.headers.authorization;
+  const decoded = jwt.verify(token, jwtpassword);
+  const username = decoded.username;
+  res.json({
+      users: ALL_USERS.filter((value) => {
+          if (value.username == username) {
+              return false;
+          }
+          else {
+              return true;
+          }
+      })
+  })
 })
 
 
