@@ -1,26 +1,21 @@
 const express = require("express");
 const jwt = require("jsonwebtoken")
 const jwtpassword = "123456";
+const mongoose = require("mongoose");
 const app = express();
-app.use(express.json());
-const ALL_USERS = [
-    {
-        username: "hero1@gmail.com",
-        password: "1234",
-        name: "hero 1",
-    },
-    {
-        username: "hero2@gmail.com",
-        password: "5678",
-        name: "hero 2",
-    },
-    {
-        username: "hero3@gmail.com",
-        password: "abcd",
-        name: "hero 3",
-    },
-];
+require("dotenv").config();
+const mongourl = process.env.MONGO_URI;
 
+app.use(express.json());
+
+mongoose.connect(mongourl)
+const User = mongoose.model('Users', { name: String, email: String, password: String });
+const user = new User({
+    email: "hero332@gmail.com",
+    password: "abcd",
+        name: "hero 3"
+})
+user.save();
 function userExists(username, password) {
     let userExists = false;
     for (let i = 0; i < ALL_USERS.length; i++){
